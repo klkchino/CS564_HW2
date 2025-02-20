@@ -1,4 +1,4 @@
-drop table if exists Item;
+drop table if exists Items;
 CREATE TABLE Items (
     ItemID INT NOT NULL,               
     Name TEXT NOT NULL,               
@@ -16,7 +16,7 @@ CREATE TABLE Items (
 
 drop table if exists Users;
 CREATE TABLE Users (
-    UserID CHAR(255) NOT NULL UNIQUE,       
+    UserID CHAR(255) NOT NULL,       
     Rating INT NOT NULL,              
     Location TEXT,                    
     Country TEXT,                     
@@ -44,7 +44,7 @@ drop table if exists ItemCategory;
 CREATE TABLE ItemCategory (
     ItemID INT NOT NULL,
     CategoryName CHAR(255) NOT NULL,
+    PRIMARY KEY (ItemID, CategoryName),
     FOREIGN KEY (ItemID) REFERENCES Items(ItemID),
-    FOREIGN KEY (CategoryName) REFERENCES Categories(CategoryName),
-    PRIMARY KEY (ItemID, CategoryName)
+    FOREIGN KEY (CategoryName) REFERENCES Categories(CategoryName)
 );
