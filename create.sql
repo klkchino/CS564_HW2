@@ -8,7 +8,7 @@ CREATE TABLE Items (
     Number_of_Bids INT NOT NULL,                            
     Started DATETIME NOT NULL,         
     Ends DATETIME NOT NULL,            
-    Description TEXT NOT NULL,                  
+    Description TEXT,                  
     Seller_UserID CHAR(255) NOT NULL,  
     PRIMARY KEY (ItemID),             
     FOREIGN KEY (Seller_UserID) REFERENCES Users(UserID)  
