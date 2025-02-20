@@ -2,13 +2,13 @@ drop table if exists Item;
 CREATE TABLE Items (
     ItemID INT NOT NULL,               
     Name TEXT NOT NULL,               
-    Currently INT NOT NULL,
-    Buy_Price INT,
-    First_Bid INT NOT NULL,    
+    Currently REAL NOT NULL,
+    Buy_Price REAL,
+    First_Bid REAL NOT NULL,    
     Number_of_Bids INT NOT NULL,                            
     Started DATETIME NOT NULL,         
     Ends DATETIME NOT NULL,            
-    Description TEXT,                  
+    Description TEXT NOT NULL,                  
     Seller_UserID CHAR(255) NOT NULL,  
     PRIMARY KEY (ItemID),             
     FOREIGN KEY (Seller_UserID) REFERENCES Users(UserID)  
@@ -28,16 +28,23 @@ CREATE TABLE Bids (
     ItemID INT NOT NULL,                  
     Bidder_UserID CHAR(255) NOT NULL,     
     Time DATETIME NOT NULL,                
-    Amount INT NOT NULL,                       
+    Amount REAL NOT NULL,                       
     FOREIGN KEY (ItemID) REFERENCES Items(ItemID),      
     FOREIGN KEY (Bidder_UserID) REFERENCES Users(UserID),
-    PRIMARY KEY (ItemID, Bidder_UserID, Amount)
+    PRIMARY KEY (ItemID, Bidder_UserID, Time)
 );
 
 drop table if exists Categories;
 CREATE TABLE Categories (
-    CategoryID INT NOT NULL,  
     CategoryName CHAR(255) NOT NULL,
-    FOREIGN KEY (CategoryID) REFERENCES Items(ItemID),
-    PRIMARY KEY (CategoryID, CategoryName)      
+    PRIMARY KEY (CategoryName)      
+);
+
+drop table if exists ItemCategory;
+CREATE TABLE ItemCategory (
+    ItemID INT NOT NULL,
+    CategoryName CHAR(255) NOT NULL,
+    FOREIGN KEY (ItemID) REFERENCES Items(ItemID),
+    FOREIGN KEY (CategoryName) REFERENCES Categories(CategoryName),
+    PRIMARY KEY (ItemID, CategoryName)
 );
